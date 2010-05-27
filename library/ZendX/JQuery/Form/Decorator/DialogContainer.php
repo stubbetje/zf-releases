@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: DialogContainer.php 20165 2010-01-09 18:57:56Z bkarwin $
+ * @version     $Id: DialogContainer.php 20746 2010-01-29 10:36:35Z beberlei $
  */
 
 /**
@@ -36,4 +36,32 @@ require_once "UiWidgetContainer.php";
 class ZendX_JQuery_Form_Decorator_DialogContainer extends ZendX_JQuery_Form_Decorator_UiWidgetContainer
 {
     protected $_helper = "dialogContainer";
+
+    /**
+     * Render an jQuery UI Widget element using its associated view helper
+     *
+     * Determine view helper from 'helper' option, or, if none set, from
+     * the element type. Then call as
+     * helper($element->getName(), $element->getValue(), $element->getAttribs())
+     *
+     * @param  string $content
+     * @return string
+     * @throws Zend_Form_Decorator_Exception if element or view are not registered
+     */
+    public function render($content)
+    {
+        $element = $this->getElement();
+        $view    = $element->getView();
+        if (null === $view) {
+            return $content;
+        }
+
+        $jQueryParams = $this->getJQueryParams();
+        $attribs     = $this->getOptions();
+
+        $helper      = $this->getHelper();
+        $id          = $element->getId() . '-container';
+
+        return $view->$helper($id, $content, $jQueryParams, $attribs);
+    }
 }
