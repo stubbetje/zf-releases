@@ -7,15 +7,22 @@ Master: [![Build Status](https://api.travis-ci.org/zendframework/zf1.png?branch=
 RELEASE INFORMATION
 ===================
 
-Zend Framework 1.12.11 Release.
-Released on February 11, 2015.
+Zend Framework 1.12.12 Release.
+Released on May 19, 2015.
 
-IMPORTANT FIXES FOR 1.12.11
+IMPORTANT FIXES FOR 1.12.12
 ---------------------------
 
-- [#440](https://github.com/zendframework/zf1/issue/506) provides a patch that
-  fixes a bug introduced in 1.12.10 with regards to how the view renderer
-  controller helper resolves a controller's name.
+**This release contains security updates:**
+
+- **ZF2015-04:** `Zend_Mail` and `Zend_Http` were both susceptible to CRLF Injection
+  Attack vectors (for HTTP, this is often referred to as HTTP Response
+  Splitting). Both components were updated to perform header value validations
+  to ensure no values contain characters not detailed in their corresponding
+  specifications, and will raise exceptions on detection. Each also provides new
+  facilities for both validating and filtering header values prior to injecting
+  them into header classes. If you use either `Zend_Mail` or `Zend_Http`,
+  we recommend upgrading immediately.
 
 See http://framework.zend.com/changelog for full details.
 
